@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import './tab.less';
 import Axios from 'axios';
 
 class Tab extends Component {
@@ -18,7 +19,7 @@ class Tab extends Component {
 
     render() {
         return (
-            <div onClick={() => this.click()}>
+            <div className="tab-warp" onClick={() => this.click()}>
                 {this.state.value}
             </div>
         );
