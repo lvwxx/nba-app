@@ -3,10 +3,17 @@ const webpack = require('webpack');
 
 module.exports = {
     entry: [
-        'react-hot-loader/patch',
-        'webpack-dev-server/client?http://localhost:3000',
-        //'webpack/hot/only-dev-server',
-        path.join(__dirname,'./app/main.js'),
+        
+            'react-hot-loader/patch',
+            'webpack-dev-server/client?http://localhost:3000',
+            //'webpack/hot/dev-server',
+            path.join(__dirname,'./app/main.js'),
+        
+        //  vendor: [
+        //     'react',
+        //     'react-dom',
+        // ],
+        
     ],
     output: {
         filename: '[name].bundle.js',
@@ -15,7 +22,7 @@ module.exports = {
     },
 
     plugins:[
-        new webpack.HotModuleReplacementPlugin(), // 启用 HMR
+        // new webpack.HotModuleReplacementPlugin(), // 启用 HMR
         new webpack.NamedModulesPlugin(),
     ],
 

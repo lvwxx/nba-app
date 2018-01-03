@@ -19,7 +19,7 @@ class Tab extends Component {
 
     render() {
         return (
-            <div className="tab-warp" onClick={() => this.click()}>
+            <div className="tab-wrap" onClick={() => this.click()}>
                 {this.state.value}
             </div>
         );
