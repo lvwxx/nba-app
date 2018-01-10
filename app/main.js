@@ -14,4 +14,4 @@ Axios.interceptors.response.use((resp) => {
 
 
 ReactDOM.render(
-    <Tab value={789}/>, document.getElementById('app'));
+    <Tab/>, document.getElementById('app'));

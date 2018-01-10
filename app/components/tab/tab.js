@@ -6,21 +6,36 @@ class Tab extends Component {
     constructor() {
         super(),
         this.state = {
-            value: 789,
+            gameRes:[{}],
+            id:null,
         }
     }
 
-    click() {
+    componentDidMount() {
         Axios.post('/api/data/a').then(res=>{
-            console.log(res);
-            this.setState({value:111});
+            console.log(res.data[0].indexLiveList);
+            this.setState({
+                gameRes:res.data[0].indexLiveList,
+                id:111,
+            });
         });
     }
 
+    click() {
+       
+    }
+
     render() {
+        const resultList = this.state.gameRes;
+        console.log(resultList);
+        const list = resultList.map((item,index) => {
+            return (
+                <li key={index}>{item.liveId}</li>
+            )
+        });
         return (
             <div className="tab-wrap" onClick={() => this.click()}>
-                {this.state.value}
+                <ul>{list}</ul>
             </div>
         );
     }
