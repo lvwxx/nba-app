@@ -6,7 +6,7 @@ module.exports = {
         
             'react-hot-loader/patch',
             'webpack-dev-server/client?http://localhost:3000',
-            //'webpack/hot/dev-server',
+            // 'webpack/hot/dev-server',
             path.join(__dirname,'./app/main.js'),
         
         //  vendor: [
@@ -22,8 +22,13 @@ module.exports = {
     },
 
     plugins:[
-        // new webpack.HotModuleReplacementPlugin(), // 启用 HMR
+        // new webpack.HotModuleReplacementPlugin(), // 启用 HMR package.json中 --hot 已经启用这个功能
         new webpack.NamedModulesPlugin(),
+        // new webpack.optimize.CommonsChunkPlugin({
+        //     name: 'vendor',
+        //     minChunks: Infinity,
+        //     filename: 'vendor.js',
+        // }),
     ],
 
     module : {
