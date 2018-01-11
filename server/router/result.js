@@ -7,6 +7,6 @@ import {getDayResults} from '../controllers/resule';
 // })
 
 
-const routers = router.post('/data/a', getDayResults);
+const routers = router.post('/data/todayResult', getDayResults);
 
 module.exports = routers;

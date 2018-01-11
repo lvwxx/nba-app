@@ -12,29 +12,49 @@ class Result extends Component {
     }
 
     componentDidMount() {
-        Axios.post('/api/data/a',{date:'01月10日'}).then(res=>{
+        Axios.post('/api/data/todayResult').then(res=>{
             console.log(res.data[0].indexLiveList);
+            const count = res.data[0].indexLiveList.length;
             this.setState({
                 gameRes:res.data[0].indexLiveList,
                 id:111,
             });
+            this.props.changeCount(count);
         });
     }
 
     click() {
-       
+       // console.log(this)
     }
 
     render() {
         const resultList = this.state.gameRes;
         const list = resultList.map((item,index) => {
             return (
-                <li key={index}>{item.liveId}</li>
+                <li key={index}>
+                    <div className="team">
+                        <img className="team_img" src={item.homeTeamLogo} />
+                        <div className="team_info">
+                            <strong className="score">{item.homeScore}</strong>
+                            <p className="name">{item.homeTeamName}</p>
+                        </div>
+                    </div>
+                    <div className="time">
+                        <span>{item.statusName}</span>
+                    </div>
+                    <div className="team">
+                        <div className="team_info">
+                            <strong className="score">{item.visitScore}</strong>
+                            <p className="name">{item.visitTeamName}</p>
+                        </div>
+                        <img className="team_img" src={item.visitTeamLogo} />
+                    </div>
+                </li>
             )
         });
 
         return (
-            <div className="" onClick={() => this.click()}>
+            <div className="result-box" onClick={() => this.click()}>
                 <ul>{list}</ul>
             </div>
         );
