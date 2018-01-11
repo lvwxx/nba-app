@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import {Tabs} from 'antd-mobile';
+import {Tabs, Badge} from 'antd-mobile';
 import Result from '../result/index';
 import Axios from 'axios';
+import './style.less';
 
 class Tab extends Component {
     constructor() {
@@ -13,7 +14,7 @@ class Tab extends Component {
 
     render() {
         const tabs = [
-            {title: 'first', sub: '1'},
+            {title: <Badge text={'今日(20)'}>first</Badge>, sub: '1'},
             {title: 'second', sub: '2'},
         ];
 
@@ -23,10 +24,10 @@ class Tab extends Component {
             tabBarPosition="bottom"
             renderTab={tab => <span>{tab.title}</span>}
             >
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', backgroundColor: 'red' }}>
+                <div className="content-wrap">
                     <Result></Result>
                 </div>
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', backgroundColor: 'blue' }}>
+                <div className="content-wrap">
                     456
                 </div>
             </Tabs>
