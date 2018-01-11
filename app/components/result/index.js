@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import './tab.less';
+import './style.less';
 import Axios from 'axios';
 
-class Tab extends Component {
+class Result extends Component {
     constructor() {
         super(),
         this.state = {
@@ -12,7 +12,7 @@ class Tab extends Component {
     }
 
     componentDidMount() {
-        Axios.post('/api/data/a').then(res=>{
+        Axios.post('/api/data/a',{date:'01月10日'}).then(res=>{
             console.log(res.data[0].indexLiveList);
             this.setState({
                 gameRes:res.data[0].indexLiveList,
@@ -27,18 +27,18 @@ class Tab extends Component {
 
     render() {
         const resultList = this.state.gameRes;
-        console.log(resultList);
         const list = resultList.map((item,index) => {
             return (
                 <li key={index}>{item.liveId}</li>
             )
         });
+
         return (
-            <div className="tab-wrap" onClick={() => this.click()}>
+            <div className="" onClick={() => this.click()}>
                 <ul>{list}</ul>
             </div>
         );
     }
 }
 
-export default Tab;
+export default Result;

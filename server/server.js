@@ -5,6 +5,7 @@ import Router from 'koa-router';
 // middleware
 import formatResponse from './middleware/response';
 const bodyParser = require('koa-bodyparser');
+const session = require('koa-session-minimal');
 const routers = require('./router/index');
 
 

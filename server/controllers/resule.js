@@ -31,7 +31,10 @@ async function getResult(dateStr=TODAY) {
 }
 
 export const getDayResults = async (ctx) => {
+        const body = ctx.request.body;
+        const dateStr = body.date;
+
          // 连接mongo数据库并查找数据
-        const result = await getResult();
+        const result = await getResult(dateStr);
         ctx.body = result;
 };

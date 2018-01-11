@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Tab from './components/tab/tab.js';
+import App from './components/app.js';
 import Axios from 'axios';
+import './less/base.less';
 
 //添加响应拦截器
 Axios.interceptors.response.use((resp) => {
@@ -14,4 +15,4 @@ Axios.interceptors.response.use((resp) => {
 
 
 ReactDOM.render(
-    <Tab/>, document.getElementById('app'));
+    <App />, document.getElementById('app'));
