@@ -1,40 +1,55 @@
 import { reject, resolve } from '_any-promise@1.3.0@any-promise';
+import Collection from '../mongo/index'
+import Axios from 'axios';
 
-const MongoClient = require('mongodb').MongoClient; 
-const DB_CONN_STR = 'mongodb://localhost:27017/'; //数据库地址
-
+const RESULT_URL = 'https://live.3g.qq.com/g/s?aid=action_api&module=nba&action=index_live&sid=';
 const date = new Date();
 const month = date.getMonth()+1 < 10 ? `0${date.getMonth()+1}` : date.getMonth();
 const day = date.getDate() < 10 ? `0${date.getDate()}` : date.getDate();
 const TODAY = `${month}月${day}日`;
 
-async function getResult(dateStr=TODAY) {
+
+// 获取当日比赛结果信息
+const getGameRes = () => {
     return new Promise((resolve,reject)=>{
-        MongoClient.connect(DB_CONN_STR, (err, db) => {
-            if (err) {
-                console.log(err);
-            }
-            console.log('链接成功');
-            const myDB = db.db('test');
-            console.log(dateStr);
-            myDB.collection('gameResult').find({dateStr,}).toArray((err, res) => {
-                if (err) {
-                    console.log(err);
-                    reject(res);
-                }
-                resolve(res);
-            });
-            db.close();  
+        Axios.get(RESULT_URL).then((res) => {
+            const data = res.data;
+            const todayResult = data.index_live.data;
+            const date = todayResult.indexLiveList[0].date;
+            todayResult.dateStr = date;
+            resolve(todayResult);
+        }).catch(error => {
+            console.log(error);
+            reject(error);
         });
     })
     
-}
+};
 
 export const getDayResults = async (ctx) => {
-        const body = ctx.request.body;
-        const dateStr = body.date;
+    const body = ctx.request.body;
+    let dateStr = body.date;
 
-         // 连接mongo数据库并查找数据
-        const result = await getResult(dateStr);
-        ctx.body = result;
+    dateStr = dateStr ? dateStr : TODAY;
+    // 连接mongo数据库并查找数据
+    let result = await Collection.find({dateStr});
+
+    if (result.length === 0) {
+        const todayReslut = await getGameRes();
+        const res = await Collection.insert(todayReslut);
+        result = await Collection.find({dateStr});
+    } else {
+        const hour = new Date().getHours();
+        if (hour >= 15) {
+            ctx.body = result;
+            return;
+        }
+        const id = result._id;
+        const todayResult = await getGameRes();
+        const res = await collection.update({"_id": id},{$set:todayResult});
+        result = await collection.find({dateStr}).toArray();
+        
+    }
+    
+    ctx.body = result;
 };
