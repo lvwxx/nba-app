@@ -13,7 +13,6 @@ class Result extends Component {
 
     componentDidMount() {
         Axios.post('/api/data/todayResult').then(res=>{
-            console.log(res.data[0].indexLiveList);
             const count = res.data[0].indexLiveList.length;
             this.setState({
                 gameRes:res.data[0].indexLiveList,

@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Tabs, Badge} from 'antd-mobile';
 import Result from '../result/index';
+import Rank from '../rank/index';
 import Axios from 'axios';
 import './style.less';
 
@@ -34,7 +35,7 @@ class Tab extends Component {
                     <Result changeCount={this.changeCount.bind(this)}></Result>
                 </div>
                 <div className="content-wrap">
-                    456
+                    <Rank></Rank>
                 </div>
             </Tabs>
         )

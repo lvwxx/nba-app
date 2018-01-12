@@ -1,12 +1,12 @@
 const router = require('koa-router')();
 import {getDayResults} from '../controllers/resule';
-
-// const routers = router.post('/data/a', async (ctx) =>{
-//     console.log(123)
-//     ctx.body="123";
-// })
+import getRank from '../controllers/rank';
 
 
-const routers = router.post('/data/todayResult', getDayResults);
+
+const routers = router
+    .post('/data/todayResult', getDayResults)
+    .post('/data/rank', getRank)
+
 
 module.exports = routers;
