@@ -39,23 +39,32 @@ class Rank extends Component {
     render() {
         // 显示的list
         const rankList = this.state.rankList.map((item,index) => {
+            let bgC = index < 8 ? {background:"#f3bf2e"} : {background:"#B3B3B5"};
             return (
                 <li key={index}>
-                    <div>{item.cnshortname}</div>
+                    <span><i className="rank-number" style={bgC}>{index+1}</i>{item.cnshortname}</span>
+                    <span>{item.wins}</span>
+                    <span>{item.losses}</span>
+                    <span>{item.winper}</span>
                 </li>
             )
         });
 
-        // 动态class
-        
-
         return (
             <div className="rank-list-wrap">
-                <nav className="normal-color">
-                    <li onClick={this.changeRankList.bind(this,'west')}>西部联盟</li>
-                    <li onClick={this.changeRankList.bind(this,'east')}>东部联盟</li>
+                <nav>
+                    <li className={this.state.rankList==this.state.westPart ? "nav_active" : "nav_normal"} onClick={this.changeRankList.bind(this,'west')}>西部联盟</li>
+                    <li className={this.state.rankList==this.state.eastPart ? "nav_active" : "nav_normal"} onClick={this.changeRankList.bind(this,'east')}>东部联盟</li>
                 </nav>
-                <ul>{rankList}</ul>
+                <ul>
+                    <li className="li_title">
+                        <span>球队</span>
+                        <span>胜</span>
+                        <span>负</span>
+                        <span>胜率</span>
+                    </li>
+                    {rankList}
+                </ul>
             </div>
         )
     }

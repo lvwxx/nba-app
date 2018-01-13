@@ -44,11 +44,12 @@ export const getDayResults = async (ctx) => {
             ctx.body = result;
             return;
         }
-        const id = result._id;
+        const id = result[0]._id;       
         const todayResult = await getGameRes();
-        const res = await collection.update({"_id": id},{$set:todayResult});
-        result = await collection.find({dateStr}).toArray();
-        
+        //console.log(todayResult);
+
+        const res = await Collection.update({"_id": id},{$set:todayResult});
+        result = await Collection.find({dateStr});
     }
     
     ctx.body = result;

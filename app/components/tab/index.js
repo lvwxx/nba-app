@@ -21,8 +21,8 @@ class Tab extends Component {
 
     render() {
         const tabs = [
-            {title: <Badge text={`今日(${this.state.count})场`}>first</Badge>, sub: '1'},
-            {title: 'second', sub: '2'},
+            {title: <Badge text={`今日(${this.state.count})场`}>今日赛果</Badge>, sub: '1'},
+            {title: '当前排名', sub: '2'},
         ];
 
         return (

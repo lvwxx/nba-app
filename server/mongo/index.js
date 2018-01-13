@@ -19,12 +19,12 @@ const collection = {
     },
 
     // 改
-    update(data) {
+    update(select,newData) {
         return new Promise((resolve,reject) => {
             connect(DB_CONN_STR).then(async (db) => {
                 const myDB = db.db('test');
                 const collection = myDB.collection('gameResult');
-                const res = await collection.update(data);
+                const res = await collection.update(select,newData);
                 resolve(res);
                 db.close();
             })

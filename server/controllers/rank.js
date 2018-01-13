@@ -37,7 +37,7 @@ const getRank = async (ctx) => {
         westPart,
     }
 
-    console.log(res.data);
+    //console.log(res.data);
     
     
     ctx.body = data;
