@@ -40,6 +40,7 @@ class Result extends Component {
                     </div>
                     <div className="time">
                         <span>{item.statusName}</span>
+                        <p>{item.leftTime}</p>
                     </div>
                     <div className="team">
                         <div className="team_info">
