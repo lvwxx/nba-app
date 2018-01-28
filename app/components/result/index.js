@@ -1,24 +1,63 @@
 import React, {Component} from 'react';
 import './style.less';
 import Axios from 'axios';
+import {Link} from 'react-router-dom';
+import {ActivityIndicator, Toast} from 'antd-mobile';
+
 
 class Result extends Component {
-    constructor() {
-        super(),
+    constructor(props) {
+        super(props),
         this.state = {
             gameRes:[{}],
             id:null,
+            date: '',
+            animating: false,
         }
     }
 
-    componentDidMount() {
-        Axios.post('/api/data/todayResult').then(res=>{
-            const count = res.data[0].indexLiveList.length;
+    // componentDidMount() {
+    //     const dateArr = this.state.date.split('-');
+    //     const date = `${dateArr[1]}月${dateArr[2]}日`;
+    //     console.log(date);
+    //     this.getDateRes(date);
+    //     console.log(2);
+    // }
+
+    componentWillReceiveProps(state) {
+        if(state.date !== this.props.date) {
+            const dateArr = state.date.split('-');
+            const date = `${dateArr[1]}月${dateArr[2]}日`;
             this.setState({
-                gameRes:res.data[0].indexLiveList,
-                id:111,
+                date,
+            },()=>{
+                this.getDateRes();
             });
-            this.props.changeCount(count);
+        }
+    }
+
+    getDateRes() {
+        this.setState({
+            animating: true,
+        });
+        const date = this.state.date;
+        Axios.post('/api/data/todayResult', {date}).then(res=>{
+            if(res.data.length>0) {
+                const count = res.data[0].indexLiveList.length;
+                this.setState({
+                    gameRes:res.data[0].indexLiveList,
+                    id:111,
+                    animating: false,
+                });
+                this.props.changeCount(count);
+            } else {
+                Toast.fail('暂无数据');
+                this.setState({
+                    animating: false,
+                    gameRes: [{}],
+                });
+            }
+           
         });
     }
 
@@ -54,8 +93,16 @@ class Result extends Component {
         });
 
         return (
-            <div className="result-box" onClick={() => this.click()}>
+            <div className="result-box">
                 <ul>{list}</ul>
+                <div className="toast-example">
+                    <ActivityIndicator
+                        toast
+                        text="Loading..."
+                        animating={this.state.animating}
+                    />
+                </div>
+                <div><Link to="/about">{this.state.date}</Link></div>
             </div>
         );
     }

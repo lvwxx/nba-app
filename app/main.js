@@ -1,8 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './components/app.js';
 import Axios from 'axios';
 import './less/base.less';
+import Routes from './router';
+import Route from '_react-router-dom@4.2.2@react-router-dom/Route';
+
 
 //添加响应拦截器
 Axios.interceptors.response.use((resp) => {
@@ -13,6 +15,4 @@ Axios.interceptors.response.use((resp) => {
     return Promise.reject(error);
 });
 
-
-ReactDOM.render(
-    <App />, document.getElementById('app'));
+ReactDOM.render(Routes, document.getElementById('app'));
