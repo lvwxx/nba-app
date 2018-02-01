@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
     entry: [
@@ -20,14 +21,13 @@ module.exports = {
         path: path.join(__dirname,'./dist'),
         publicPath: '/dist/',
     },
-
+    devtool: 'inline-source-map',
     plugins:[
         // new webpack.HotModuleReplacementPlugin(), // 启用 HMR package.json中 --hot 已经启用这个功能
         new webpack.NamedModulesPlugin(),
-        // new webpack.optimize.CommonsChunkPlugin({
-        //     name: 'vendor',
-        //     minChunks: Infinity,
-        //     filename: 'vendor.js',
+        // new UglifyJSPlugin(), // tree shaking
+        // new webpack.optimize.CommonsChunkPlugin({ // 提出公共代码
+        //     name: 'common',
         // }),
     ],
 
@@ -46,6 +46,9 @@ module.exports = {
             },{
                 test: /\.css$/,
                 loader: 'style-loader!css-loader'
+            },{
+                test: /\.(png|jpg)$/,
+                loader: 'url-loader'
             }
         ]
     },

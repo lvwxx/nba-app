@@ -20,18 +20,6 @@ app.use(views(path.join(__dirname,'../views'),{
     extension: 'html'
 }));
 
-// app.use(async (ctx,next) => {
-//     const start = new Date();
-//     await next();
-//     const ms = new Date() - start;
-//     console.log(ctx.url);
-
-//     if(ctx.url==='/api/data/a') {
-//         ctx.body = '123';
-//     }
-    
-// })
-
 app.use(formatResponse);
 
 app

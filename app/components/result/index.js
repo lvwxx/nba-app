@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import './style.less';
 import Axios from 'axios';
-import {Link} from 'react-router-dom';
+import {Link, withRouter} from 'react-router-dom';
 import {ActivityIndicator, Toast} from 'antd-mobile';
 
 
@@ -41,7 +41,7 @@ class Result extends Component {
             animating: true,
         });
         const date = this.state.date;
-        Axios.post('/api/data/todayResult', {date}).then(res=>{
+        Axios.post('/api/result/todayResult', {date}).then(res=>{
             if(res.data.length>0) {
                 const count = res.data[0].indexLiveList.length;
                 this.setState({
@@ -59,17 +59,17 @@ class Result extends Component {
             }
            
         });
-    }
+    } 
 
-    click() {
-       // console.log(this)
+    goDetail(item) {
+        this.props.history.push(`/detail?sch_id=${item.scheduleId}&bid=${item.liveId}`);
     }
 
     render() {
         const resultList = this.state.gameRes;
         const list = resultList.map((item,index) => {
             return (
-                <li key={index}>
+                <li key={index} onClick={()=>this.goDetail(item)}>
                     <div className="team">
                         <img className="team_img" src={item.homeTeamLogo} />
                         <div className="team_info">
@@ -108,4 +108,4 @@ class Result extends Component {
     }
 }
 
-export default Result;
+export default withRouter(Result);

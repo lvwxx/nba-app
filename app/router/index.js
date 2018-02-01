@@ -1,13 +1,13 @@
 import React from 'react';
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import {HashRouter as Router, Route, Switch} from 'react-router-dom';
 import App from '../components/app';
-import About from '../components/about';
+import Detail from '../components/detail';
 
 const routes = (
     <Router>  
         <Switch>
             <Route exact path="/" component={App} />
-            <Route path="/about" component={About} />
+            <Route path="/detail" component={Detail} />
         </Switch>
     </Router>    
 )

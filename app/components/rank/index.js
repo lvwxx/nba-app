@@ -13,7 +13,7 @@ class Rank extends Component {
     }
 
     componentDidMount() {
-        Axios.post('/api/data/rank').then(res => {
+        Axios.post('/api/result/rank').then(res => {
             // console.log(res);
             this.setState({
                 westPart: res.data.westPart,
