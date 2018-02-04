@@ -28,16 +28,15 @@ const getGameRes = () => {
 
 export const getDayResults = async (ctx) => {
     const body = ctx.request.body;
-    let dateStr = body.date;
-
-    dateStr = dateStr ? dateStr : TODAY;
+    let dateStr = body.date ? body.date : TODAY;
+    const collect = "gameResult";
     // 连接mongo数据库并查找数据
-    let result = await Collection.find({dateStr});
+    let result = await Collection.find(collect,{dateStr});
 
     if (result.length === 0) {
         const todayReslut = await getGameRes();
-        const res = await Collection.insert(todayReslut);
-        result = await Collection.find({dateStr});
+        const res = await Collection.insert(collect,todayReslut);
+        result = await Collection.find(collect,{dateStr});
     } else {
         const hour = new Date().getHours();
         if (hour >= 15) {
@@ -48,8 +47,8 @@ export const getDayResults = async (ctx) => {
         const todayResult = await getGameRes();
         //console.log(todayResult);
 
-        const res = await Collection.update({"_id": id},{$set:todayResult});
-        result = await Collection.find({dateStr});
+        const res = await Collection.update(collect,{"_id": id},{$set:todayResult});
+        result = await Collection.find(collect,{dateStr});
     }
     
     ctx.body = result;

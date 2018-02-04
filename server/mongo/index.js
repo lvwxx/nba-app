@@ -6,11 +6,11 @@ const DB_CONN_STR = 'mongodb://localhost:27017/'; //数据库地址
 
 const collection = {
     // 查
-    find(data) {
+    find(collect,data) {
         return new Promise((resolve,reject) => {
             connect(DB_CONN_STR).then(async (db) => {
                 const myDB = db.db('test');
-                const collection = myDB.collection('gameResult');
+                const collection = myDB.collection(collect);
                 const res = await collection.find(data).toArray();
                 resolve(res);
                 db.close();
@@ -18,12 +18,24 @@ const collection = {
         })
     },
 
-    // 改
-    update(select,newData) {
+    findOne(collect,data) {
         return new Promise((resolve,reject) => {
             connect(DB_CONN_STR).then(async (db) => {
                 const myDB = db.db('test');
-                const collection = myDB.collection('gameResult');
+                const collection = myDB.collection(collect);
+                const res = await collection.findOne(data);
+                resolve(res);
+                db.close();
+            })
+        });
+    },
+
+    // 改
+    update(collect,select,newData) {
+        return new Promise((resolve,reject) => {
+            connect(DB_CONN_STR).then(async (db) => {
+                const myDB = db.db('test');
+                const collection = myDB.collection(collect);
                 const res = await collection.update(select,newData);
                 resolve(res);
                 db.close();
@@ -32,11 +44,11 @@ const collection = {
     },
 
     // 增
-    insert(data) {
+    insert(collect,data) {
         return new Promise((resolve,reject) => {
             connect(DB_CONN_STR).then(async (db) => {
                 const myDB = db.db('test');
-                const collection = myDB.collection('gameResult');
+                const collection = myDB.collection(collect);
                 const res = await collection.insert(data);
                 resolve(res);
                 db.close();

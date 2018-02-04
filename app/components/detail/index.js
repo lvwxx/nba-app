@@ -9,7 +9,9 @@ class Detail extends Component {
     constructor() {
         super(),
         this.state = {
-            resultData:{},
+            resultData:{
+                sec_scores:[],
+            },
             detailData:{},
         }
     }
