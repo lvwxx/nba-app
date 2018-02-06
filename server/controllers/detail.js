@@ -15,7 +15,7 @@ const getDetail = async (ctx) => {
     let dataResult = await Collection.findOne(collect,{"broadcast_info.sch_id":Number(sch_id)});
 
     if(hour >= 14) {
-        if(!dataResult && !dataResult._id) {
+        if(!dataResult) {
             dataResult = await getDetailRemote(sch_id,bid);
             dataResult = dataResult.data;
             Collection.insert(collect, dataResult);

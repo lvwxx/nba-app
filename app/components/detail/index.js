@@ -4,6 +4,7 @@ import Axios from 'axios';
 import './style.less';
 import {Progress} from 'antd-mobile';
 import TimeResult from '../time-match';
+import MvpResult from '../mvp';
 
 class Detail extends Component {
     constructor() {
@@ -33,6 +34,7 @@ class Detail extends Component {
 
     render() {
         const resultData = this.state.resultData;
+        const detailData = this.state.detailData;
         const percent = resultData.circleVoteNumLeft/(resultData.circleVoteNumRight+resultData.circleVoteNumLeft)*100;
         return (
             <div className="detail-page">
@@ -59,8 +61,11 @@ class Detail extends Component {
                         <Progress percent={percent} position="normal" appearTransition />
                     </div>
                 </div>
-                <div className="time-table">
+                <div className="time-table table">
                     <TimeResult result={resultData}></TimeResult>
+                </div>
+                <div className="mvp-table table">
+                    <MvpResult mvp={detailData.teamStat} t1_icon={resultData.t1_icon} t2_icon={resultData.t2_icon}></MvpResult>
                 </div>
             </div>
         );

@@ -1,3 +1,7 @@
+@tr-bg:#f8f8f8;
+@border-color:#e8e8e8;
+@font-color:#222;
+
 .detail-page {
     background-color: #fff;
 
@@ -37,6 +41,44 @@
         .progress {
             margin-top: 0.5rem;
             padding: 0 0.6rem;
+        }
+    }
+
+    .table {
+
+        .title {
+            padding:0.2rem 0.32rem;
+            color: @font-color;
+            font-size: .3rem;
+        }
+
+        table {
+            width: 100%;
+            
+            td {
+                text-align: center;
+
+                img {
+                    width: 62px;
+                    height: 36px;
+                }
+            }
+
+            thead>tr{
+                background-color: @tr-bg;
+                color: #787878;
+            }
+
+            tbody {
+
+                tr:nth-of-type(2) {
+                    background-color: @tr-bg;
+                }
+
+                td:not(:last-child) {
+                    border-right: 1px solid #efeff3;
+                }
+            }
         }
     }
 }
